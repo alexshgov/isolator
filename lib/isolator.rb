@@ -9,6 +9,7 @@ require "isolator/adapter_builder"
 require "isolator/guard"
 require "isolator/notifier"
 require "isolator/errors"
+require "isolator/listeners"
 
 if defined?(ActiveRecord::Base)
   require "isolator/orm_adapters/active_record_adapter"
@@ -35,15 +36,17 @@ module Isolator
     end
 
     def notify(klass:, backtrace: [])
-      Notifier.new(klass, backtrace).call
+      Notifier.new(klass: klass, backtrace: backtrace).call
     end
 
     def enable!
       Thread.current[:isolator] = true
+      Listeners.enable!
     end
 
     def disable!
       Thread.current[:isolator] = false
+      Listeners.infer!
     end
 
     def enabled?
