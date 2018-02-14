@@ -5,10 +5,10 @@ module Isolator
   class Notifier
     attr_reader :object, :backtrace
 
-    def initialize(object:, backtrace: caller, exception: nil)
-      @object = object
-      @backtrace = backtrace
-      @exception = exception
+    def initialize(options = {})
+      @object = options[:klass]
+      @backtrace = options[:backtrace]
+      @exception = options[:exception]
     end
 
     def call

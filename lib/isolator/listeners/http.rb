@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 module Isolator
-  module Listeners
+  class Listeners
     class HTTP
-      def start!
+      def enable!
         Sniffer.enable!
       end
 
       def infer!
-        disable!
         return unless requests_were_made?
+        disable!
         Isolator.notify(klass: self)
       end
 
@@ -20,7 +20,7 @@ module Isolator
       private
 
       def requests_were_made?
-        Sniffer.data.empty?
+        !Sniffer.data.empty?
       end
     end
   end

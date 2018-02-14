@@ -3,11 +3,11 @@
 require "spec_helper"
 
 RSpec.describe HTTP do
-  before { Isolator.enable! }
-
   shared_examples "outgoing request" do |http_method|
     subject(:make_request) do
+      Isolator.enable!
       described_class.public_send(http_method, "http://example.com")
+      Isolator.disable!
     end
 
     it { expect { make_request }.to raise_exception(Isolator::NetworkRequestError) }

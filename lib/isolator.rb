@@ -9,18 +9,20 @@ require "isolator/adapter_builder"
 require "isolator/guard"
 require "isolator/notifier"
 require "isolator/errors"
+
 require "isolator/listeners"
+require "isolator/listeners/http"
 
 if defined?(ActiveRecord::Base)
   require "isolator/orm_adapters/active_record_adapter"
   require "isolator/active_record/connection_decorator"
 end
 
-require "isolator/adapters/http/ethon_adapter" if defined?(::Ethon::Easy)
-require "isolator/adapters/http/patron_adapter" if defined?(::Patron::Session)
-require "isolator/adapters/http/httpclient_adapter" if defined?(::HTTPClient)
-require "isolator/adapters/http/http_adapter" if defined?(::HTTP::Client)
-require "isolator/adapters/http/net_http_adapter" if defined?(::Net::HTTP)
+# require "isolator/adapters/http/ethon_adapter" if defined?(::Ethon::Easy)
+# require "isolator/adapters/http/patron_adapter" if defined?(::Patron::Session)
+# require "isolator/adapters/http/httpclient_adapter" if defined?(::HTTPClient)
+# require "isolator/adapters/http/http_adapter" if defined?(::HTTP::Client)
+# require "isolator/adapters/http/net_http_adapter" if defined?(::Net::HTTP)
 require "isolator/adapters/background_jobs/active_job" if defined?(ActiveJob::Base)
 require "isolator/adapters/background_jobs/sidekiq" if defined?(Sidekiq::Client)
 

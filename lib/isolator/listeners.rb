@@ -17,6 +17,10 @@ module Isolator
         listeners.each(&method(:disable_listener_and_infer!))
       end
 
+      def reset
+        @listeners = []
+      end
+
       private
 
       def disable_listener_and_infer!(listener)
